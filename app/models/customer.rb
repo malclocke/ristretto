@@ -9,13 +9,13 @@ class Customer < ActiveRecord::Base
 
   # Collection of all the stakeholders (User) of all the projects that belong to
   # a customer
-  def users(reset = false)
+  def stakeholders(reset = false)
     projects.each.collect { |project| project.users(reset) }.flatten.uniq
   end
 
   # Check for a stakeholder
   def has_stakeholder?(user)
-    users.include?(user)
+    stakeholders.include?(user)
   end
 
   # By default, sort all finders by name

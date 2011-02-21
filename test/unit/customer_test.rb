@@ -31,12 +31,12 @@ class CustomerTest < ActiveSupport::TestCase
     end
   end
 
-  def test_returns_users
-    assert_kind_of Array, customers(:customer1).users
-    assert_equal 1, customers(:customer1).users.count
+  def test_returns_stakeholders
+    assert_kind_of Array, customers(:customer1).stakeholders
+    assert_equal 1, customers(:customer1).stakeholders.count
     Stakeholder.create :user => users(:user2),
       :project => projects(:project1), :role => 'developer'
-    assert_equal 2, customers(:customer1).users(true).count
+    assert_equal 2, customers(:customer1).stakeholders(true).count
   end
 
   def test_has_stakeholder
