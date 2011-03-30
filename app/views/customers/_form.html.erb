@@ -4,6 +4,38 @@
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
+  <% unless @customer.new_record? %>
+    <div class="form-item form-item-block">
+      <h3 class="title">Contacts</h3>
+      <table id="contacts">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% form.fields_for :contacts do |contact_form| %>
+            <tr>
+              <td>
+                <% if contact_form.object.new_record? %>
+                  <%= contact_form.label :user_id, "New contact" %>
+                  <%= contact_form.collection_select :user_id, User.all, :id, :for_select_box %>
+                <% else %>
+                  <%= contact_form.hidden_field :id %>
+                  <%=h contact_form.object.user.for_select_box %>
+                <% end %>
+              </td>
+              <td>
+                <%= contact_form.label :role, 'Contact type' %>
+                <%= contact_form.select :role, contact_roles_for_select, :include_blank => '-- optional role --' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
   <div class="form-item form-item-block">
     <%= form.submit "Save" %>
   </div>

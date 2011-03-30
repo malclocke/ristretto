@@ -2,7 +2,11 @@ require 'test_helper'
 
 class CustomersControllerTest < ActionController::TestCase
 
-  setup :activate_authlogic
+  def setup
+    @customer = Factory.create(:customer)
+    @customer_params = Factory.attributes_for(:customer)
+    activate_authlogic
+  end
 
   # Routes
   def test_index_routes
@@ -373,4 +377,12 @@ class CustomersControllerTest < ActionController::TestCase
     assert_equal 3, Customer.find(:all).size
   end
 
+  test "should add contacts" do
+    UserSession.create(users(:user1))
+    @customer_params['contacts_attributes'] = {'0' => { 'user_id' => users(:user2).to_param,
+                                    'role' => 'admin' }}
+    assert_difference 'Contact.count' do
+      put :update, :id => @customer.to_param, :customer => @customer_params
+    end
+  end
 end

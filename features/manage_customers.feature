@@ -35,3 +35,18 @@ Feature: Manage Customers
     And I should see "Customer 2"
     And I should see "No Projects!"
     And I should have 1 customer
+
+  @wip
+  Scenario: Assign a user to a customer role
+    Given I have a customer named Customer 1
+    And the following users exist:
+      | first_name  | last_name | email               | password  | is_staff  |
+      | Joe         | Public    | user1@notstaff.com  | 1234      | false     |
+    When I go to the list of customers
+    And I follow "Customer 1"
+    And I follow "Edit"
+    And I select "Public, Joe (user1@notstaff.com)" from "New contact"
+    And I select "Admin" from "Contact type"
+    And I press "Save"
+    #Then I should see "Added 'Joe Public' as Admin contact for Customer 1"
+    And "user1@notstaff.com" should be "Admin" contact for "Customer 1"

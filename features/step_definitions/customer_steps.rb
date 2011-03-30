@@ -11,3 +11,10 @@ end
 Then /^I should have (\d+) customer$/ do |count|
   Customer.count == count.to_i
 end
+
+Then /^"([^"]*)" should be "([^"]*)" contact for "([^"]*)"$/ do |email, contact_type, customer_name|
+  user = User.find_by_email(email)
+  customer = Customer.find_by_name(customer_name)
+  customer.contacts.should include(user)
+end
+

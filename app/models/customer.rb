@@ -7,6 +7,9 @@ class Customer < ActiveRecord::Base
   belongs_to :user
   has_many :projects, :dependent => :destroy
 
+  has_many :contacts
+  accepts_nested_attributes_for :contacts
+
   # Collection of all the stakeholders (User) of all the projects that belong to
   # a customer
   def stakeholders(reset = false)

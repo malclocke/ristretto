@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110213225827) do
+ActiveRecord::Schema.define(:version => 20110221021104) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "attachable_id"
@@ -33,6 +33,14 @@ ActiveRecord::Schema.define(:version => 20110213225827) do
 
   add_index "comments", ["task_id"], :name => "index_comments_on_task_id"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
+  create_table "contacts", :force => true do |t|
+    t.string   "role"
+    t.integer  "user_id"
+    t.integer  "customer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "customers", :force => true do |t|
     t.text     "name"

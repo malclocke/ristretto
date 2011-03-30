@@ -51,3 +51,7 @@ Factory.define :mailout do |m|
   m.subject 'Test mailout subject'
   m.body 'Test mailout body'
 end
+
+Factory.define :contact do |c|
+  c.role 'admin'
+end

@@ -32,7 +32,7 @@ class CustomersController < ApplicationController
 
   # GET /customers/1/edit
   def edit
-
+    @customer.contacts.build
   end
 
   # POST /customers
